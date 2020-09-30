@@ -18,7 +18,6 @@ class Loja:
     self.cnpj = cnpj
     self.inscricao_estadual = inscricao_estadual
 
-
-def dados_loja_objeto(loja):
+  def dados_loja(self):
     # Implemente aqui
     return "" 

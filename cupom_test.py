@@ -6,7 +6,7 @@ import pytest
 
 def verifica_campo_obrigatorio_objeto(mensagem_esperada, loja):
     with pytest.raises(Exception) as excinfo:
-        cupom.dados_loja_objeto(loja)
+        loja.dados_loja()
     the_exception = excinfo.value
     assert mensagem_esperada == str(the_exception)
 
@@ -41,7 +41,7 @@ IE: 123456789"""
 
 def test_loja_completa():
     assert (
-        cupom.dados_loja_objeto(LOJA_COMPLETA) == TEXTO_ESPERADO_LOJA_COMPLETA
+        LOJA_COMPLETA.dados_loja() == TEXTO_ESPERADO_LOJA_COMPLETA
     )
 
 
@@ -104,12 +104,9 @@ IE: 123456789"""
 
 
 def test_valida_numero():
-    assert (cupom.dados_loja_objeto(LOJA_NUMERO_ZERO)
-            == TEXTO_ESPERADO_SEM_NUMERO)
-    assert (cupom.dados_loja_objeto(LOJA_NUMERO_VAZIO)
-            == TEXTO_ESPERADO_SEM_NUMERO)
-    assert (cupom.dados_loja_objeto(LOJA_NUMERO_NULO)
-            == TEXTO_ESPERADO_SEM_NUMERO)
+    assert (LOJA_NUMERO_ZERO.dados_loja() == TEXTO_ESPERADO_SEM_NUMERO)
+    assert (LOJA_NUMERO_VAZIO.dados_loja() == TEXTO_ESPERADO_SEM_NUMERO)
+    assert (LOJA_NUMERO_NULO.dados_loja() == TEXTO_ESPERADO_SEM_NUMERO)
 
 
 LOJA_COMPLEMENTO_NULO = cupom.Loja(NOME_LOJA, LOGRADOURO, NUMERO, None, BAIRRO,
@@ -130,9 +127,9 @@ IE: 123456789"""
 
 
 def test_valida_complemento():
-    assert (cupom.dados_loja_objeto(LOJA_COMPLEMENTO_NULO)
+    assert (LOJA_COMPLEMENTO_NULO.dados_loja()
             == TEXTO_ESPERADO_SEM_COMPLEMENTO)
-    assert (cupom.dados_loja_objeto(LOJA_COMPLEMENTO_VAZIO)
+    assert (LOJA_COMPLEMENTO_VAZIO.dados_loja()
             == TEXTO_ESPERADO_SEM_COMPLEMENTO)
 
 
@@ -154,9 +151,9 @@ IE: 123456789"""
 
 
 def test_valida_bairro():
-    assert (cupom.dados_loja_objeto(LOJA_BAIRRO_NULO)
+    assert (LOJA_BAIRRO_NULO.dados_loja()
             == TEXTO_ESPERADO_SEM_BAIRRO)
-    assert (cupom.dados_loja_objeto(LOJA_BAIRRO_VAZIO)
+    assert (LOJA_BAIRRO_VAZIO.dados_loja()
             == TEXTO_ESPERADO_SEM_BAIRRO)
 
 
@@ -207,8 +204,8 @@ IE: 123456789"""
 
 
 def test_valida_cep():
-    assert cupom.dados_loja_objeto(LOJA_CEP_NULO) == TEXTO_ESPERADO_SEM_CEP
-    assert cupom.dados_loja_objeto(LOJA_CEP_VAZIO) == TEXTO_ESPERADO_SEM_CEP
+    assert LOJA_CEP_NULO.dados_loja() == TEXTO_ESPERADO_SEM_CEP
+    assert LOJA_CEP_VAZIO.dados_loja() == TEXTO_ESPERADO_SEM_CEP
 
 
 LOJA_TELEFONE_NULO = cupom.Loja(NOME_LOJA, LOGRADOURO, NUMERO, COMPLEMENTO,
@@ -228,10 +225,8 @@ IE: 123456789"""
 
 
 def test_sem_telefone():
-    assert cupom.dados_loja_objeto(
-        LOJA_TELEFONE_NULO) == TEXTO_ESPERADO_SEM_TELEFONE
-    assert cupom.dados_loja_objeto(
-        LOJA_TELEFONE_VAZIO) == TEXTO_ESPERADO_SEM_TELEFONE
+    assert LOJA_TELEFONE_NULO.dados_loja() == TEXTO_ESPERADO_SEM_TELEFONE
+    assert LOJA_TELEFONE_VAZIO.dados_loja() == TEXTO_ESPERADO_SEM_TELEFONE
 
 
 LOJA_OBSERVACAO_NULA = cupom.Loja(NOME_LOJA, LOGRADOURO, NUMERO, COMPLEMENTO,
@@ -251,10 +246,8 @@ IE: 123456789"""
 
 
 def test_valida_observacao():
-    assert cupom.dados_loja_objeto(LOJA_OBSERVACAO_NULA)
-    == TEXTO_ESPERADO_SEM_OBSERVACAO
-    assert cupom.dados_loja_objeto(LOJA_OBSERVACAO_VAZIA)
-    == TEXTO_ESPERADO_SEM_OBSERVACAO
+    assert LOJA_OBSERVACAO_NULA.dados_loja() == TEXTO_ESPERADO_SEM_OBSERVACAO
+    assert LOJA_OBSERVACAO_VAZIA.dados_loja() == TEXTO_ESPERADO_SEM_OBSERVACAO
 
 
 LOJA_CNPJ_NULO = cupom.Loja(NOME_LOJA, LOGRADOURO, NUMERO, COMPLEMENTO,
@@ -302,11 +295,10 @@ IE: 123456789'''
 
 
 def test_valida_numero_e_complemento():
-    assert cupom.dados_loja_objeto(LOJA_SEM_NUMERO_SEM_COMPLEMENTO)
-    == TEXTO_ESPERADO_SEM_NUMERO_SEM_COMPLEMENTO
+    assert LOJA_SEM_NUMERO_SEM_COMPLEMENTO.dados_loja() == TEXTO_ESPERADO_SEM_NUMERO_SEM_COMPLEMENTO
 
 
-LOJA_SEM_NUMERO_SEM_COMPLEMENTO_SEM_BAIRRO = Loja(NOME_LOJA, LOGRADOURO, None,
+LOJA_SEM_NUMERO_SEM_COMPLEMENTO_SEM_BAIRRO = cupom.Loja(NOME_LOJA, LOGRADOURO, None,
                                                   None, None, MUNICIPIO,
                                                   ESTADO, CEP, TELEFONE,
                                                   OBSERVACAO, CNPJ,
@@ -322,8 +314,7 @@ IE: 123456789'''
 
 
 def test_valida_numero_complemento_e_bairro():
-    assert cupom.dados_loja_objeto(LOJA_SEM_NUMERO_SEM_COMPLEMENTO_SEM_BAIRRO)
-    == TEXTO_ESPERADO_SEM_NUMERO_SEM_COMPLEMENTO_SEM_BAIRRO
+    assert LOJA_SEM_NUMERO_SEM_COMPLEMENTO_SEM_BAIRRO.dados_loja() == TEXTO_ESPERADO_SEM_NUMERO_SEM_COMPLEMENTO_SEM_BAIRRO
 
 
 def test_exercicio2_customizado():
@@ -342,10 +333,10 @@ def test_exercicio2_customizado():
     cnpj = ""
     inscricao_estadual = ""
 
-    lojaCustomizada = cupom.Loja(nome_loja, logradouro, numero, complemento,
+    loja_customizada = cupom.Loja(nome_loja, logradouro, numero, complemento,
                                  bairro, municipio, estado, cep, telefone,
                                  observacao, cnpj, inscricao_estadual)
 
     # E atualize o texto esperado abaixo
-    assert (cupom.dados_loja_objeto(lojaCustomizada) == """
+    assert (loja_customizada.dados_loja() == """
 """)
